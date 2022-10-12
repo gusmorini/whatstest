@@ -134,6 +134,34 @@ class WhatsTest {
       let data = this.el.formPanelAddContact.toJSON();
       console.log(data);
     });
+    /** ---- eventos lista mensagens ---- */
+    this.el.contactsMessagesList
+      .querySelectorAll(".contact-item")
+      .forEach((item) => {
+        item.on("click", (e) => {
+          this.el.home.hide();
+          this.el.main.css({
+            display: "flex",
+          });
+        });
+      });
+
+    /** ---- evento menu attach ---- */
+    this.el.btnAttach.on("click", (e) => {
+      e.stopPropagation();
+      this.el.menuAttach.addClass("open");
+      document.addEventListener("click", this.closeMenuAttach.bind(this));
+    });
+    this.el.btnAttachPhoto.on("click", () => console.log("foto"));
+    this.el.btnAttachCamera.on("click", () => console.log("camera"));
+    this.el.btnAttachDocument.on("click", () => console.log("documento"));
+    this.el.btnAttachContact.on("click", () => console.log("contato"));
+  }
+
+  /** fecha o menu attach ao clicar em qualquer outro elemento */
+  closeMenuAttach() {
+    document.removeEventListener("click", this.closeMenuAttach);
+    this.el.menuAttach.removeClass("open");
   }
 
   /** oculta todos os paineis laterais */
