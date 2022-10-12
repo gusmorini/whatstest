@@ -78,6 +78,18 @@ class WhatsTest {
     Element.prototype.hasClass = function (name) {
       return this.classList.contains(name);
     };
+    /** retorna campos do form dentro do formData */
+    HTMLFormElement.prototype.getForm = function () {
+      return new FormData(this);
+    };
+    /** retorna os dados do form em JSON */
+    HTMLFormElement.prototype.toJSON = function () {
+      let json = {};
+      this.getForm().forEach((value, key) => {
+        json[key] = value;
+      });
+      return json;
+    };
   }
 
   initEvents() {
@@ -101,7 +113,29 @@ class WhatsTest {
     this.el.btnClosePanelAddContact.on("click", (e) => {
       this.el.panelAddContact.removeClass("open");
     });
+    /** captura imagem usuario */
+    this.el.imgDefaultPanelEditProfile.on("click", (e) => {
+      this.el.inputProfilePhoto.click();
+    });
+    /** captura texto profile e click ao pressionar enter */
+    this.el.inputNamePanelEditProfile.on("keypress", (e) => {
+      if (e.key === "Enter") {
+        e.preventDefault();
+        this.el.btnSavePanelEditProfile.click();
+      }
+    });
+    /** click btn save profile */
+    this.el.btnSavePanelEditProfile.on("click", () => {
+      console.log(this.el.inputNamePanelEditProfile.innerHTML);
+    });
+    /** form add contact */
+    this.el.formPanelAddContact.on("submit", (e) => {
+      e.preventDefault();
+      let data = this.el.formPanelAddContact.toJSON();
+      console.log(data);
+    });
   }
+
   /** oculta todos os paineis laterais */
   closeAllPanelLeft() {
     this.el.panelEditProfile.hide();
