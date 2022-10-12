@@ -1,13 +1,22 @@
 class WhatsTest {
   constructor() {
+    /**
+     * métodos Element.prototype
+     * para facilitar o desenvolvimento
+     */
     this.elementsPrototype();
+    /**
+     * método para carregar todos os
+     * elementos com id do DOM e formatar
+     * nomes em camel case
+     */
     this.loadElements();
+    /**
+     * método adiciona eventos aos elementos iniciais
+     */
+    this.initEvents();
   }
 
-  /**
-   * carrega todos elementos com id do dom
-   * e formata nomes id em camel case
-   */
   loadElements() {
     this.el = {};
     document.querySelectorAll("[id").forEach((element) => {
@@ -56,7 +65,7 @@ class WhatsTest {
       return this;
     };
     /** método remove class */
-    Element.prototype.remClass = function (name) {
+    Element.prototype.removeClass = function (name) {
       this.classList.remove(name);
       return this;
     };
@@ -69,5 +78,33 @@ class WhatsTest {
     Element.prototype.hasClass = function (name) {
       return this.classList.contains(name);
     };
+  }
+
+  initEvents() {
+    /** mostra painel editar profile */
+    this.el.myPhoto.on("click", (e) => {
+      this.closeAllPanelLeft();
+      this.el.panelEditProfile.show();
+      setTimeout(() => this.el.panelEditProfile.addClass("open"), 300);
+    });
+    /** oculta painel editar profile */
+    this.el.btnClosePanelEditProfile.on("click", (e) => {
+      this.el.panelEditProfile.removeClass("open");
+    });
+    /** mostra painel adicionar contact */
+    this.el.btnNewContact.on("click", (e) => {
+      this.closeAllPanelLeft();
+      this.el.panelAddContact.show();
+      setTimeout(() => this.el.panelAddContact.addClass("open"), 300);
+    });
+    /** oculta painel adicionar contact */
+    this.el.btnClosePanelAddContact.on("click", (e) => {
+      this.el.panelAddContact.removeClass("open");
+    });
+  }
+  /** oculta todos os paineis laterais */
+  closeAllPanelLeft() {
+    this.el.panelEditProfile.hide();
+    this.el.panelAddContact.hide();
   }
 }
