@@ -152,10 +152,57 @@ class WhatsTest {
       this.el.menuAttach.addClass("open");
       document.addEventListener("click", this.closeMenuAttach.bind(this));
     });
-    this.el.btnAttachPhoto.on("click", () => console.log("foto"));
-    this.el.btnAttachCamera.on("click", () => console.log("camera"));
-    this.el.btnAttachDocument.on("click", () => console.log("documento"));
-    this.el.btnAttachContact.on("click", () => console.log("contato"));
+    /** ---- item photo ---- */
+    this.el.btnAttachPhoto.on("click", () => {
+      this.el.inputPhoto.click();
+    });
+    this.el.inputPhoto.on("change", (e) => {
+      [...e.target.files].forEach((file) => console.log(file));
+    });
+    /** ---- item camera ---- */
+    this.el.btnAttachCamera.on("click", () => {
+      this.closeAllMainPainel();
+      this.el.panelCamera.addClass("open");
+      this.el.panelCamera.css({
+        height: "calc(100%)",
+      });
+    });
+    this.el.btnClosePanelCamera.on("click", () => {
+      this.closeAllMainPainel();
+      this.el.panelMessagesContainer.show();
+    });
+    this.el.btnTakePicture.on("click", (e) => {
+      console.log("TAKE PICTURE");
+    });
+    /** ---- item documento ---- */
+    this.el.btnAttachDocument.on("click", () => {
+      this.closeAllMainPainel();
+      this.el.panelDocumentPreview.addClass("open");
+      this.el.panelDocumentPreview.css({
+        height: "calc(100%)",
+      });
+    });
+    this.el.btnClosePanelDocumentPreview.on("click", (e) => {
+      this.closeAllMainPainel();
+      this.el.panelMessagesContainer.show();
+    });
+    this.el.btnSendDocument.on("click", (e) => {
+      console.log("SEND DOCUMENT");
+    });
+    /** ---- item contato ---- */
+    this.el.btnAttachContact.on("click", () => {
+      this.el.modalContacts.show();
+    });
+    this.el.btnCloseModalContacts.on("click", (e) =>
+      this.el.modalContacts.hide()
+    );
+  }
+
+  /** ---- fecha todos paineis principais ---- */
+  closeAllMainPainel() {
+    this.el.panelMessagesContainer.hide();
+    this.el.panelDocumentPreview.removeClass("open");
+    this.el.panelCamera.removeClass("open");
   }
 
   /** fecha o menu attach ao clicar em qualquer outro elemento */
