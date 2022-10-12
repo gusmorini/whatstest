@@ -93,47 +93,55 @@ class WhatsTest {
   }
 
   initEvents() {
-    /** mostra painel editar profile */
+    /** ---- mostra painel editar profile ---- */
     this.el.myPhoto.on("click", (e) => {
       this.closeAllPanelLeft();
       this.el.panelEditProfile.show();
       setTimeout(() => this.el.panelEditProfile.addClass("open"), 300);
     });
-    /** oculta painel editar profile */
+
+    /** ---- oculta painel editar profile ---- */
     this.el.btnClosePanelEditProfile.on("click", (e) => {
       this.el.panelEditProfile.removeClass("open");
     });
-    /** mostra painel adicionar contact */
+
+    /** ---- mostra painel adicionar contact ---- */
     this.el.btnNewContact.on("click", (e) => {
       this.closeAllPanelLeft();
       this.el.panelAddContact.show();
       setTimeout(() => this.el.panelAddContact.addClass("open"), 300);
     });
-    /** oculta painel adicionar contact */
+
+    /** ---- oculta painel adicionar contact ---- */
     this.el.btnClosePanelAddContact.on("click", (e) => {
       this.el.panelAddContact.removeClass("open");
     });
-    /** captura imagem usuario */
+
+    /** ---- captura imagem usuario ---- */
     this.el.imgDefaultPanelEditProfile.on("click", (e) => {
       this.el.inputProfilePhoto.click();
     });
-    /** captura texto profile e click ao pressionar enter */
+
+    /** ---- captura texto profile e click ao pressionar enter ---- */
     this.el.inputNamePanelEditProfile.on("keypress", (e) => {
       if (e.key === "Enter") {
         e.preventDefault();
         this.el.btnSavePanelEditProfile.click();
       }
     });
-    /** click btn save profile */
+
+    /** ---- click btn save profile ---- */
     this.el.btnSavePanelEditProfile.on("click", () => {
       console.log(this.el.inputNamePanelEditProfile.innerHTML);
     });
-    /** form add contact */
+
+    /** ---- form add contact ---- */
     this.el.formPanelAddContact.on("submit", (e) => {
       e.preventDefault();
       let data = this.el.formPanelAddContact.toJSON();
       console.log(data);
     });
+
     /** ---- eventos lista mensagens ---- */
     this.el.contactsMessagesList
       .querySelectorAll(".contact-item")
@@ -152,6 +160,7 @@ class WhatsTest {
       this.el.menuAttach.addClass("open");
       document.addEventListener("click", this.closeMenuAttach.bind(this));
     });
+
     /** ---- item photo ---- */
     this.el.btnAttachPhoto.on("click", () => {
       this.el.inputPhoto.click();
@@ -159,6 +168,7 @@ class WhatsTest {
     this.el.inputPhoto.on("change", (e) => {
       [...e.target.files].forEach((file) => console.log(file));
     });
+
     /** ---- item camera ---- */
     this.el.btnAttachCamera.on("click", () => {
       this.closeAllMainPainel();
@@ -174,6 +184,7 @@ class WhatsTest {
     this.el.btnTakePicture.on("click", (e) => {
       console.log("TAKE PICTURE");
     });
+
     /** ---- item documento ---- */
     this.el.btnAttachDocument.on("click", () => {
       this.closeAllMainPainel();
@@ -189,6 +200,7 @@ class WhatsTest {
     this.el.btnSendDocument.on("click", (e) => {
       console.log("SEND DOCUMENT");
     });
+
     /** ---- item contato ---- */
     this.el.btnAttachContact.on("click", () => {
       this.el.modalContacts.show();
@@ -196,6 +208,7 @@ class WhatsTest {
     this.el.btnCloseModalContacts.on("click", (e) =>
       this.el.modalContacts.hide()
     );
+
     /** ---- eventos microfone ---- */
     this.el.btnSendMicrophone.on("click", (e) => {
       this.el.recordMicrophone.show();
@@ -207,6 +220,38 @@ class WhatsTest {
     });
     this.el.btnFinishMicrophone.on("click", (e) => {
       this.closeRecordMicrophone();
+    });
+
+    /** ---- eventos caixa de msg ---- */
+    this.el.inputText.on("keypress", (e) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        this.el.btnSend.click();
+      }
+    });
+    this.el.inputText.on("keyup", (e) => {
+      if (this.el.inputText.innerHTML.length) {
+        this.el.inputPlaceholder.hide();
+        this.el.btnSendMicrophone.hide();
+        this.el.btnSend.show();
+      } else {
+        this.el.inputPlaceholder.show();
+        this.el.btnSendMicrophone.show();
+        this.el.btnSend.hide();
+      }
+    });
+    this.el.btnSend.on("click", (e) => {
+      const text = this.el.inputText.innerHTML;
+      console.log(text);
+      this.el.inputText.innerHTML = "";
+    });
+    this.el.btnEmojis.on("click", (e) => {
+      this.el.panelEmojis.toggleClass("open");
+    });
+    this.el.panelEmojis.querySelectorAll(".emojik").forEach((emoji) => {
+      emoji.on("click", (e) => {
+        console.log(emoji.dataset.unicode);
+      });
     });
   }
 
@@ -233,13 +278,13 @@ class WhatsTest {
     this.el.panelCamera.removeClass("open");
   }
 
-  /** fecha o menu attach ao clicar em qualquer outro elemento */
+  /** ---- fecha o menu attach ao clicar em qualquer outro elemento ---- */
   closeMenuAttach() {
     document.removeEventListener("click", this.closeMenuAttach);
     this.el.menuAttach.removeClass("open");
   }
 
-  /** oculta todos os paineis laterais */
+  /** ---- oculta todos os paineis laterais ---- */
   closeAllPanelLeft() {
     this.el.panelEditProfile.hide();
     this.el.panelAddContact.hide();
