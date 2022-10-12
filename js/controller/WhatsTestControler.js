@@ -214,7 +214,8 @@ class WhatsTest {
   startRecordMicrophoneTimer() {
     let start = Date.now();
     this._recordMicrophoneInterval = setInterval(() => {
-      this.el.recordMicrophoneTimer.innerHTML = Date.now() - start;
+      const duration = Date.now() - start;
+      this.el.recordMicrophoneTimer.innerHTML = Format.toTime(duration);
     }, 100);
   }
 
