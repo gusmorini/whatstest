@@ -196,6 +196,33 @@ class WhatsTest {
     this.el.btnCloseModalContacts.on("click", (e) =>
       this.el.modalContacts.hide()
     );
+    /** ---- eventos microfone ---- */
+    this.el.btnSendMicrophone.on("click", (e) => {
+      this.el.recordMicrophone.show();
+      this.el.btnSendMicrophone.hide();
+      this.startRecordMicrophoneTimer();
+    });
+    this.el.btnCancelMicrophone.on("click", (e) => {
+      this.closeRecordMicrophone();
+    });
+    this.el.btnFinishMicrophone.on("click", (e) => {
+      this.closeRecordMicrophone();
+    });
+  }
+
+  /** ---- timer microfone ---- */
+  startRecordMicrophoneTimer() {
+    let start = Date.now();
+    this._recordMicrophoneInterval = setInterval(() => {
+      this.el.recordMicrophoneTimer.innerHTML = Date.now() - start;
+    }, 100);
+  }
+
+  /** ---- fecha opções do microfone ---- */
+  closeRecordMicrophone() {
+    this.el.recordMicrophone.hide();
+    this.el.btnSendMicrophone.show();
+    clearInterval(this._recordMicrophoneInterval);
   }
 
   /** ---- fecha todos paineis principais ---- */
