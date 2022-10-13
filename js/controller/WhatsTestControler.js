@@ -250,7 +250,18 @@ class WhatsTest {
     });
     this.el.panelEmojis.querySelectorAll(".emojik").forEach((emoji) => {
       emoji.on("click", (e) => {
-        console.log(emoji.dataset.unicode);
+        // duplicando um elemento com cloneNode
+        let img = this.el.imgEmojiDefault.cloneNode();
+        // atribuindo os atributos do emoji para o img
+        img.style.cssText = emoji.style.cssText;
+        img.dataset.unicode = emoji.dataset.unicode;
+        img.alt = emoji.dataset.unicode;
+        // percorrendo e atribuindo classes
+        emoji.classList.forEach((name) => img.classList.add(name));
+        // insere o novo item ao campo de texto da msg
+        this.el.inputText.appendChild(img);
+        // forçar o keyup
+        this.el.inputText.dispatchEvent(new Event("keyup"));
       });
     });
   }
