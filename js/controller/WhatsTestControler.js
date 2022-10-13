@@ -258,8 +258,22 @@ class WhatsTest {
         img.alt = emoji.dataset.unicode;
         // percorrendo e atribuindo classes
         emoji.classList.forEach((name) => img.classList.add(name));
-        // insere o novo item ao campo de texto da msg
-        this.el.inputText.appendChild(img);
+        // recupera posição atual do cursor
+        let cursor = window.getSelection();
+        // verifica onde o cursor está e foca no texto se necessário
+        if (!cursor.focusNode || !cursor.focusNode.id == "input-text") {
+          this.el.inputText.focus();
+          cursor = window.getSelection();
+        }
+        // cria um elemento range
+        let range = document.createRange();
+        range = cursor.getRangeAt(0);
+        range.deleteContents();
+        // cria um elemento fragment
+        let fragment = document.createDocumentFragment();
+        fragment.appendChild(img);
+        range.insertNode(fragment);
+        range.setStartAfter(img);
         // forçar o keyup
         this.el.inputText.dispatchEvent(new Event("keyup"));
       });
