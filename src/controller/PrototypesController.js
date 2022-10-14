@@ -4,7 +4,7 @@
  * prototype do elemento para
  * acelerar o desenvolvimento
  */
-class PrototypesController {
+export default class PrototypesController {
   static elementsPrototype() {
     /** oculta o elemento */
     Element.prototype.hide = function () {

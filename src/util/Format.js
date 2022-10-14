@@ -1,4 +1,4 @@
-class Format {
+export default class Format {
   /**
    * método transforma texto em camelcase
    * ex: meu-elemento -> meuElemento

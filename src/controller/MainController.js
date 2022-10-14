@@ -1,4 +1,8 @@
-class Main {
+import Format from "../util/Format";
+import PrototypesController from "./PrototypesController";
+import CameraController from "./CameraController";
+
+export default class MainController {
   constructor() {
     PrototypesController.elementsPrototype();
     /**
