@@ -1,1 +1,1 @@
-window.app = new WhatsTest();
+window.app = new Main();

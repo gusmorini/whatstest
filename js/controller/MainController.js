@@ -1,4 +1,4 @@
-class WhatsTest {
+class Main {
   constructor() {
     /**
      * métodos Element.prototype
