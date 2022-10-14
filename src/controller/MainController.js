@@ -111,10 +111,12 @@ export default class MainController {
       this._camera = new CameraController(this.el.videoCamera);
     });
     this.el.btnClosePanelCamera.on("click", () => {
+      this._camera.stop();
       this.closeAllMainPainel();
       this.el.panelMessagesContainer.show();
     });
     this.el.btnTakePicture.on("click", (e) => {
+      this._camera.stop();
       console.log("TAKE PICTURE");
     });
 
