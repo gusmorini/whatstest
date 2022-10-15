@@ -104,11 +104,12 @@ export default class MainController {
     /** ---- item camera ---- */
     this.el.btnAttachCamera.on("click", () => {
       this.closeAllMainPainel();
-      this.el.panelCamera.addClass("open");
+      this.el.panelCamera.addClass("open"), 300;
       this.el.panelCamera.css({
         height: "calc(100%)",
       });
       this._camera = new CameraController(this.el.videoCamera);
+      this.el.videoCamera.show();
     });
     this.el.btnClosePanelCamera.on("click", () => {
       this._camera.stop();
@@ -116,8 +117,23 @@ export default class MainController {
       this.el.panelMessagesContainer.show();
     });
     this.el.btnTakePicture.on("click", (e) => {
+      this.el.pictureCamera.src = this._camera.takePicture();
+      this.el.pictureCamera.show();
+      this.el.videoCamera.hide();
+      this.el.btnReshootPanelCamera.show();
+      this.el.containerTakePicture.hide();
+      this.el.containerSendPicture.show();
+    });
+    this.el.btnReshootPanelCamera.on("click", (e) => {
+      this.el.pictureCamera.hide();
+      this.el.videoCamera.show();
+      this.el.btnReshootPanelCamera.hide();
+      this.el.containerTakePicture.show();
+      this.el.containerSendPicture.hide();
+    });
+    this.el.btnSendPicture.on("click", (e) => {
+      console.log(this.el.pictureCamera.src);
       this._camera.stop();
-      console.log("TAKE PICTURE");
     });
 
     /** ---- item documento ---- */
@@ -236,6 +252,7 @@ export default class MainController {
     this.el.panelMessagesContainer.hide();
     this.el.panelDocumentPreview.removeClass("open");
     this.el.panelCamera.removeClass("open");
+    this.el.pictureCamera.hide();
   }
 
   /** ---- fecha o menu attach ao clicar em qualquer outro elemento ---- */
