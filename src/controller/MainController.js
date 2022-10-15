@@ -1,6 +1,7 @@
 import Format from "../util/Format";
 import PrototypesController from "./PrototypesController";
 import CameraController from "./CameraController";
+import DocumentPreviewController from "./DocumentPreviewController";
 
 export default class MainController {
   constructor() {
@@ -143,6 +144,53 @@ export default class MainController {
       this.el.panelDocumentPreview.css({
         height: "calc(100%)",
       });
+      this.el.inputDocument.click();
+    });
+    this.el.inputDocument.on("change", (e) => {
+      if (this.el.inputDocument.files.length) {
+        let file = this.el.inputDocument.files[0];
+        this._document = new DocumentPreviewController(file);
+        this._document
+          .getPreviewData()
+          .then(({ url, name, ext, preview }) => {
+            if (preview) {
+              this.el.imgPanelDocumentPreview.src = url;
+              this.el.infoPanelDocumentPreview.innerHTML = name;
+              this.el.imagePanelDocumentPreview.show();
+              this.el.filePanelDocumentPreview.hide();
+            } else {
+              let classIcon = "";
+              switch (ext) {
+                case "doc":
+                case "docx":
+                  classIcon = "icon-doc-doc";
+                  break;
+
+                case "xls":
+                case "xlxs":
+                  classIcon = "icon-doc-xls";
+                  break;
+
+                case "ppt":
+                case "pptx":
+                  classIcon = "icon-doc-ppt";
+                  break;
+
+                case "txt":
+                  classIcon = "icon-doc-txt";
+                  break;
+
+                default:
+                  classIcon = "icon-doc-generic";
+              }
+              this.el.iconPanelDocumentPreview.classList = "jcxhw " + classIcon;
+              this.el.filenamePanelDocumentPreview.innerHTML = name;
+              this.el.imagePanelDocumentPreview.hide();
+              this.el.filePanelDocumentPreview.show();
+            }
+          })
+          .catch((err) => console.error(err));
+      }
     });
     this.el.btnClosePanelDocumentPreview.on("click", (e) => {
       this.closeAllMainPainel();
