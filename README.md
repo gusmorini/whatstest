@@ -24,7 +24,8 @@ tecnologia    | descrição
 Webpack       | gerenciador de bundle
 Prototypes    | funções para os Elementos nativos
 Media Devices | captura de audio e video
-PDFJS         | elemento para criar imagens
+Canvas        | elemento para criar imagens
+PDFJS         | gerenciador de arquivos pdf
 
 <br><br>
 
