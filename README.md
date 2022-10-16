@@ -1,22 +1,33 @@
-# Projeto WhatsApp Clone
+# Projeto modelo whatsapp test
 
-[![Hcode Treinamentos](https://www.hcode.com.br/res/img/hcode-200x100.png)](https://www.hcode.com.br)
+---
 
-Projeto desenvolvido como exemplo do Curso Completo de JavaScript na Udemy.com.
+> pré-requisitos
+~~~
+nodejs + npm
+~~~
 
-### Projeto
-![WhatsApp Clone](https://firebasestorage.googleapis.com/v0/b/hcode-com-br.appspot.com/o/whatsapp.jpg?alt=media&token=5fc78e3b-4871-424f-abfa-b765f2515d0c)
+>Dentro da pasta do projeto execute os comandos:
+```
+npm install
+npm run dev
+```
 
-### Recursos Usados
+Rodando no [LINK](http://127.0.0.1:8080)
 
-Lista de recursos usados em aula para este projeto
+---
 
-| Recurso | Link |
-| ------ | ------ |
-| Webpack | https://webpack.js.org/ |
-| Firebase Authentication | https://firebase.google.com/docs/auth/?authuser=0 |
-| Cloud Firestore | https://firebase.google.com/docs/firestore/?authuser=0 |
-| Cloud Functions | https://firebase.google.com/docs/functions/?hl=pt-br |
-| Cloud Storage | https://firebase.google.com/docs/storage/?authuser=0 |
-| PDF.js | https://mozilla.github.io/pdf.js/ |
-| MediaDevices.getUserMedia() | https://developer.mozilla.org/en-US/docs/Web/API/MediaDevices/getUserMedia |
+## Principais tecnologias utilizadas no projeto:
+
+tecnologia    | descrição
+---------     | ------
+Webpack       | gerenciador de bundle
+Prototypes    | funções para os Elementos nativos
+Media Devices | captura de audio e video
+PDFJS         | elemento para criar imagens
+
+<br><br>
+
+---
+
+##### direitos de imagem ao *Whatsapp*, layout disponibilizado por *Hcode*
