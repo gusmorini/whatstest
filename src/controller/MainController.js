@@ -1,6 +1,7 @@
 import Format from "../util/Format";
 import PrototypesController from "./PrototypesController";
 import CameraController from "./CameraController";
+import MicrophoneController from "./MicrophoneController";
 import DocumentPreviewController from "./DocumentPreviewController";
 
 export default class MainController {
@@ -213,12 +214,15 @@ export default class MainController {
       this.el.recordMicrophone.show();
       this.el.btnSendMicrophone.hide();
       this.startRecordMicrophoneTimer();
+      this._microphone = new MicrophoneController();
     });
     this.el.btnCancelMicrophone.on("click", (e) => {
       this.closeRecordMicrophone();
+      this._microphone.stop();
     });
     this.el.btnFinishMicrophone.on("click", (e) => {
       this.closeRecordMicrophone();
+      this._microphone.stop();
     });
 
     /** ---- eventos caixa de msg ---- */
