@@ -1,5 +1,10 @@
-export default class MicrophoneController {
+import { ClassEvent } from "../util/ClassEvent";
+
+export default class MicrophoneController extends ClassEvent {
   constructor() {
+    // chama o constructor da classe extendida no caso "ClassEvent"
+    super();
+
     this.start();
   }
 
@@ -10,7 +15,7 @@ export default class MicrophoneController {
         this._stream = stream;
         let audio = new Audio();
         audio.srcObject = this._stream;
-        audio.play();
+        this.trigger("play", audio);
       })
       .catch((err) => console.error(err));
   }

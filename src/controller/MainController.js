@@ -215,6 +215,9 @@ export default class MainController {
       this.el.btnSendMicrophone.hide();
       this.startRecordMicrophoneTimer();
       this._microphone = new MicrophoneController();
+      this._microphone.on("play", (audio) => {
+        audio.play();
+      });
     });
     this.el.btnCancelMicrophone.on("click", (e) => {
       this.closeRecordMicrophone();
