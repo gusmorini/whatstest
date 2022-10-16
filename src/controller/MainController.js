@@ -260,7 +260,7 @@ export default class MainController {
         // recupera posição atual do cursor
         let cursor = window.getSelection();
         // verifica onde o cursor está e foca no texto se necessário
-        if (!cursor.focusNode || !cursor.focusNode.id == "input-text") {
+        if (cursor.focusNode || !cursor.focusNode.id == "input-text") {
           this.el.inputText.focus();
           cursor = window.getSelection();
         }
