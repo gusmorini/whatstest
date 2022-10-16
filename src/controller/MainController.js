@@ -152,9 +152,9 @@ export default class MainController {
         this._document = new DocumentPreviewController(file);
         this._document
           .getPreviewData()
-          .then(({ url, name, ext, preview }) => {
+          .then(({ src, name, ext, preview }) => {
             if (preview) {
-              this.el.imgPanelDocumentPreview.src = url;
+              this.el.imgPanelDocumentPreview.src = src;
               this.el.infoPanelDocumentPreview.innerHTML = name;
               this.el.imagePanelDocumentPreview.show();
               this.el.filePanelDocumentPreview.hide();
