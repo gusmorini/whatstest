@@ -213,10 +213,14 @@ export default class MainController {
     this.el.btnSendMicrophone.on("click", (e) => {
       this.el.recordMicrophone.show();
       this.el.btnSendMicrophone.hide();
-      this.startRecordMicrophoneTimer();
       this._microphone = new MicrophoneController();
+
       this._microphone.on("ready", (stream) => {
         this._microphone.startRecorder();
+      });
+
+      this._microphone.on("recordTimer", (duration) => {
+        this.el.recordMicrophoneTimer.innerHTML = Format.toTime(duration);
       });
     });
     this.el.btnCancelMicrophone.on("click", (e) => {
@@ -286,20 +290,10 @@ export default class MainController {
     });
   }
 
-  /** ---- timer microfone ---- */
-  startRecordMicrophoneTimer() {
-    let start = Date.now();
-    this._recordMicrophoneInterval = setInterval(() => {
-      const duration = Date.now() - start;
-      this.el.recordMicrophoneTimer.innerHTML = Format.toTime(duration);
-    }, 100);
-  }
-
   /** ---- fecha opções do microfone ---- */
   closeRecordMicrophone() {
     this.el.recordMicrophone.hide();
     this.el.btnSendMicrophone.show();
-    clearInterval(this._recordMicrophoneInterval);
   }
 
   /** ---- fecha todos paineis principais ---- */

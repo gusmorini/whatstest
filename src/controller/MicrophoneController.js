@@ -15,8 +15,6 @@ export default class MicrophoneController extends ClassEvent {
       .then((stream) => {
         this._available = true;
         this._stream = stream;
-        // let audio = new Audio();
-        // audio.srcObject = this._stream;
         this.trigger("ready", this._stream);
       })
       .catch((err) => console.error(err));
@@ -55,13 +53,28 @@ export default class MicrophoneController extends ClassEvent {
       });
 
       this._mediaRecorder.start();
+      this.startTimer();
     }
   }
 
   stopRecorder() {
     if (this.isAvailable) {
-      this.stop();
       this._mediaRecorder.stop();
+      this.stopTimer();
+      this.stop();
     }
+  }
+
+  startTimer() {
+    let start = Date.now();
+    this._recordMicrophoneInterval = setInterval(() => {
+      const duration = Date.now() - start;
+      this.trigger("recordTimer", duration);
+      // this.el.recordMicrophoneTimer.innerHTML = Format.toTime(duration);
+    }, 100);
+  }
+
+  stopTimer() {
+    clearInterval(this._recordMicrophoneInterval);
   }
 }
