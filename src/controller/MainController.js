@@ -4,6 +4,8 @@ import CameraController from "./CameraController";
 import MicrophoneController from "./MicrophoneController";
 import DocumentPreviewController from "./DocumentPreviewController";
 
+import { Database } from "../database/db";
+
 export default class MainController {
   constructor() {
     PrototypesController.elementsPrototype();
@@ -17,6 +19,11 @@ export default class MainController {
      * método adiciona eventos aos elementos iniciais
      */
     this.initEvents();
+    /**
+     * inicialização do banco de dados
+     * no caso "firebase"
+     */
+    this._firebase = new Database();
   }
 
   loadElements() {
