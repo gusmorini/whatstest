@@ -215,17 +215,17 @@ export default class MainController {
       this.el.btnSendMicrophone.hide();
       this.startRecordMicrophoneTimer();
       this._microphone = new MicrophoneController();
-      this._microphone.on("play", (audio) => {
-        audio.play();
+      this._microphone.on("ready", (stream) => {
+        this._microphone.startRecorder();
       });
     });
     this.el.btnCancelMicrophone.on("click", (e) => {
       this.closeRecordMicrophone();
-      this._microphone.stop();
+      this._microphone.stopRecorder();
     });
     this.el.btnFinishMicrophone.on("click", (e) => {
       this.closeRecordMicrophone();
-      this._microphone.stop();
+      this._microphone.stopRecorder();
     });
 
     /** ---- eventos caixa de msg ---- */
